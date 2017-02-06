@@ -32,20 +32,29 @@ class ViewController: UIViewController {
     }
 
     @IBAction func backSpace(_ sender: Any) {
-        //If the windows contains anything at all then we delete from it
-        let currentText = displayWindow.text!
-        if(currentText != " "){
-            if(currentText.characters.count > 1){
-                displayWindow.text = currentText.substring(to: currentText.index(before: currentText.endIndex))
-            }else{
-                displayWindow.text = " ";
-            }
+        
+        // If there was no typing then there's nothing to delete
+        guard userIsInTheMiddleOfTyping == true else {
+            return
+        }
+        
+        // Just for safety, if the label has no text the code returns
+        guard let currentText = displayWindow.text else {
+            return
+        }
+        
+        displayWindow.text = currentText.substring(to: currentText.index(before: currentText.endIndex))
+        //If there's nothing in the new text we set it to a default "0" in order for the label to keep it's size
+        if(displayWindow.text?.isEmpty)!{
+            displayWindow.text = "0"
+            userIsInTheMiddleOfTyping = false;
         }
     }
     
     @IBAction func clearWindow(_ sender: UIButton) {
-        displayWindow.text = " ";
-        calculatorService.setOperand(operand: 0)
+        displayWindow.text = "0"
+        userIsInTheMiddleOfTyping = false
+        calculatorService.clear()
     }
     
     @IBAction private func touchDigit(_ sender: UIButton) {

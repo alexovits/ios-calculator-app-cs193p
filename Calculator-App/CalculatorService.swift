@@ -51,6 +51,12 @@ class CalculatorService {
         acc = operand
     }
     
+    // Setting everything to the defaults
+    func clear(){
+        acc = 0.0
+        pending = nil
+    }
+    
     func performOperation(symbol: String){
         // Only if the symbol has an associated Operation in the dictionary
         if let operation = operationDict[symbol] {
