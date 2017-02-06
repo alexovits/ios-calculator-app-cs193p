@@ -45,6 +45,12 @@ class ViewController: UIViewController {
         print("Touch \(digit) digit!");
     }
 
+    // Handles decimal number creation
+    @IBAction func touchDecimal(_ sender: UIButton) {
+        displayWindow.text = userIsInTheMiddleOfTyping ? displayWindow.text! + "." : "0."
+        userIsInTheMiddleOfTyping = true
+    }
+    
     @IBAction private func performOperation(_ sender: UIButton) {
         // After an operation is requested the display can be overwritten and the accumulator will be set
         if(userIsInTheMiddleOfTyping){
