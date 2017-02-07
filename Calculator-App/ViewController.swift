@@ -91,7 +91,27 @@ class ViewController: UIViewController {
         if let mathematicalSymbol = sender.currentTitle {
             calculatorService.performOperation(symbol: mathematicalSymbol)
         }
-        displayValue = calculatorService.getResult();
+        updateUI()
     }
+    
+    @IBAction func setVariable() {
+        calculatorService.setVariable(variable: "M", value: displayValue)
+        // Since the last continuing operation chain has been saved
+        // We can simply execute the operations again with a new value for M
+        // Triggers set: calculatorService.program = calculatorService.program
+        calculatorService.executeProgram()
+        userIsInTheMiddleOfTyping = false
+        updateUI()
+    }
+
+    @IBAction func insertVariable() {
+        calculatorService.setOperand(variable: "M")
+        updateUI()
+    }
+    
+    func updateUI(){
+        displayValue = calculatorService.getResult()
+    }
+    
 }
 

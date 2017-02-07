@@ -11,8 +11,9 @@ import Foundation
 class CalculatorService {
     
     private var acc = 0.0
-    
+    private var internalProgram = [AnyObject]()
     private var descriptionAcc = " "
+    private var variableValues = Dictionary<String, Double>()
     
     enum Operation {
         case Constant(Double)
@@ -45,7 +46,35 @@ class CalculatorService {
         "=" : Operation.Equals
     ]
     
+    typealias PropertyList = AnyObject
+    
+    // This doesn't return the internal data structure since Array is value type it sends a copy of itself
+    var program: PropertyList {
+        get {
+            return internalProgram as CalculatorService.PropertyList
+        }
+        
+        set {
+            clear()
+            if let arrayOfOps = newValue as? [AnyObject]{
+                for op in arrayOfOps {
+                    if let operand = op as? Double{
+                        setOperand(operand: operand)
+                    }else if let operand = op as? String{
+                        // If the saved symbol is a variable symbol existing in out dictionary
+                        if variableValues[operand] != nil{
+                            setOperand(variable: operand)
+                        }else{
+                            performOperation(symbol: operand)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func performOperation(symbol: String){
+        internalProgram.append(symbol as AnyObject)
         // Only if the symbol has an associated Operation in the dictionary
         if let operation = operationDict[symbol] {
             switch operation {
@@ -80,10 +109,18 @@ class CalculatorService {
     }
     
     // Publicly available methods
+    func setOperand(variable: String){
+        // If it's not a new variable just keep it's value
+        variableValues[variable] = variableValues[variable] ?? 0.0
+        acc = variableValues[variable]!
+        descriptionAcc = variable
+        internalProgram.append(variable as AnyObject)
+    }
     
     func setOperand(operand: Double){
         acc = operand
         descriptionAcc = String(operand)
+        internalProgram.append(operand as AnyObject)
     }
     
     // Setting everything to the defaults
@@ -91,6 +128,7 @@ class CalculatorService {
         acc = 0.0
         pending = nil
         descriptionAcc = " "
+        internalProgram.removeAll()
     }
     
     // Instead of var result: Double { get { return acc; } }
@@ -100,10 +138,37 @@ class CalculatorService {
     
     func getDescription() -> (String){
         var temporaryAppend = "..."
+        //print(descriptionAcc)
+        //print(pending?.descOperand)
         if descriptionAcc != pending?.descOperand{
             temporaryAppend = String(descriptionAcc)
         }
         return (pending != nil) ? pending!.descFunction(pending!.descOperand, temporaryAppend) : descriptionAcc + " ="
     }
+    
+    func setVariable(variable: String, value: Double){
+        guard variableValues[variable] != nil else {
+            return
+        }
+        
+        variableValues[variable]! = value
+    }
+    
+    func executeProgram(){
+        for op in internalProgram {
+            if let operand = op as? Double{
+                setOperand(operand: operand)
+            }else if let operand = op as? String{
+                // If the saved symbol is a variable symbol existing in out dictionary
+                if variableValues[operand] != nil{
+                    setOperand(variable: operand)
+                }else{
+                    performOperation(symbol: operand)
+                }
+            }
+        }
+    }
+    
+    // For an undo function just delete tha last element from internalProgram...
     
 }
