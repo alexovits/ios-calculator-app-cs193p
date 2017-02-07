@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         set {
             displayWindow.text = String(newValue);
             print(calculatorService.getDescription())
+            descriptionLabel.text = calculatorService.getDescription()
         }
     }
 
@@ -72,8 +73,10 @@ class ViewController: UIViewController {
 
     // Handles decimal number creation
     @IBAction func touchDecimal(_ sender: UIButton) {
-        displayWindow.text = userIsInTheMiddleOfTyping ? displayWindow.text! + "." : "0."
-        userIsInTheMiddleOfTyping = true
+        if(displayWindow.text?.range(of: ".") == nil){
+            displayWindow.text = userIsInTheMiddleOfTyping ? displayWindow.text! + "." : "0."
+            userIsInTheMiddleOfTyping = true
+        }
     }
     
     @IBAction private func performOperation(_ sender: UIButton) {
