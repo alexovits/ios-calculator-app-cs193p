@@ -28,6 +28,7 @@ class ViewController: UIViewController {
         }
         set {
             displayWindow.text = String(newValue);
+            print(calculatorService.getDescription())
         }
     }
 
@@ -67,8 +68,6 @@ class ViewController: UIViewController {
             displayWindow.text = digit;
         }
         userIsInTheMiddleOfTyping = true;
-        
-        print("Touch \(digit) digit!");
     }
 
     // Handles decimal number creation
@@ -89,7 +88,7 @@ class ViewController: UIViewController {
         if let mathematicalSymbol = sender.currentTitle {
             calculatorService.performOperation(symbol: mathematicalSymbol)
         }
-        displayValue = calculatorService.result;
+        displayValue = calculatorService.getResult();
     }
 }
 
