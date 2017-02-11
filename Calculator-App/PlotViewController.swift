@@ -17,11 +17,11 @@ class PlotViewController: UIViewController, PlotViewDataSource {
 
     @IBOutlet weak var plotView: PlotView!{
         didSet {
-            plotView.addGestureRecognizer(UIPinchGestureRecognizer(target: plotView, action: #selector(plotView.zoom(_:))))
-            plotView.addGestureRecognizer(UIPanGestureRecognizer(target: plotView, action: #selector(plotView.pan(_:))))
+            plotView.addGestureRecognizer(UIPinchGestureRecognizer(target: plotView, action: #selector(plotView.zoomIn)))
+            plotView.addGestureRecognizer(UIPanGestureRecognizer(target: plotView, action: #selector(plotView.panTo)))
             
-            let recognizer = UITapGestureRecognizer(target: plotView, action: #selector(plotView.doubleTap(_:)))
-            recognizer.numberOfTapsRequired = 2 // single tap, double tap, etc.
+            let recognizer = UITapGestureRecognizer(target: plotView, action: #selector(plotView.doubleTap))
+            recognizer.numberOfTapsRequired = 2
             plotView.addGestureRecognizer(recognizer)
         }
     }

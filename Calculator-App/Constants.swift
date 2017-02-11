@@ -9,12 +9,8 @@
 import Foundation
 
 struct Constants {
-    struct Math {
-        static let numberOfDigitsAfterDecimalPoint = 6
-        static let variableName = "M"
-    }
     
-    struct Drawing {
+    struct Graphic {
         static let pointsPerUnit = 40.0
     }
     
