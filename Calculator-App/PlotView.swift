@@ -62,5 +62,17 @@ class PlotView: UIView {
         }
     }
     
+    override func draw(_ rect: CGRect) {
+        // If origin is already set it's cool
+        // If not then take the view's center as origin (e.g. The)
+        print("Fuckoff")
+        origin = origin ?? CGPoint(x: bounds.midX, y: bounds.midY)
+        
+        color.set()
+        //pathForFunction().stroke()
+        
+        axesDrawer.drawAxesInRect(bounds: dataSource?.getBounds() ?? bounds, origin: origin, pointsPerUnit: scale)
+    }
+    
     
 }

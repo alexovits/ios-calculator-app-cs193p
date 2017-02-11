@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Calculator View Controller-->
+        <!--Calculator-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CalculatorViewController" customModule="Calculator_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -299,7 +299,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Plot"/>
                                 <connections>
-                                    <segue destination="Vhe-6Y-JzP" kind="showDetail" id="dm2-X6-pUJ"/>
+                                    <segue destination="Vhe-6Y-JzP" kind="show" identifier="Draw Function" id="I4m-M8-UJu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -309,7 +309,7 @@
                             <constraint firstItem="JAd-Sk-8EC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ZjY-EM-Bh2"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="9iq-pE-ygm"/>
+                    <navigationItem key="navigationItem" title="Calculator" id="9iq-pE-ygm"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="mAq-73-4TJ" id="p4E-KZ-8si"/>
                         <outlet property="displayWindow" destination="SNC-gA-GnP" id="gdz-3H-gyg"/>
@@ -338,7 +338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hmm-iT-CGw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2050" y="45"/>
+            <point key="canvasLocation" x="2409" y="-315"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="W31-vt-GMZ">

@@ -112,6 +112,45 @@ class CalculatorViewController: UIViewController {
     func updateUI(){
         displayValue = calculatorService.getResult()
     }
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+                case "Draw Function":
+                    print("faszom1")
+                    // If the computations are fully specified (e.g. 3 + M x ...)
+                    guard !calculatorService.isPartialResult else {
+                        print(Constants.Error.partialResult)
+                        return
+                    }
+                    
+                    // Following the practice from the class
+                    
+                    // If the destination can be interpreted as a UINavigationController
+                    // This case is for the case when the segue points to a NavigationController not the actual PlotViewController
+                    var destinationVC = segue.destination
+                    if let nvc = destinationVC as? UINavigationController {
+                        destinationVC = nvc.visibleViewController ?? destinationVC
+                    }
+                    
+                    // If the destination can be interpreted as a PlotViewController
+                    if let vc = destinationVC as? PlotViewController {
+                        // Set the title of the new view in the Nav Controller
+                        vc.navigationItem.title = calculatorService.getDescription()
+                        vc.function = {
+                            (x: CGFloat) -> Double in
+                            self.calculatorService.setVariable(variable: "M", value: Double(x))
+                            self.calculatorService.executeProgram()
+                            return self.calculatorService.getResult()
+                        }
+                    }
+                    print("faszom")
+                
+                default: break
+            }
+        }
+    }
     
 }
 

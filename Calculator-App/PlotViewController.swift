@@ -23,6 +23,7 @@ class PlotViewController: UIViewController, PlotViewDataSource {
             let recognizer = UITapGestureRecognizer(target: plotView, action: #selector(plotView.doubleTap))
             recognizer.numberOfTapsRequired = 2
             plotView.addGestureRecognizer(recognizer)
+            print("Added Gesture Reckognizers")
         }
     }
     

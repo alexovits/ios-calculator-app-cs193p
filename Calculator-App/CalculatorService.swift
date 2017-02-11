@@ -15,7 +15,7 @@ class CalculatorService {
     private var descriptionAcc = " "
     private var variableValues = Dictionary<String, Double>()
     
-    private var isPartialResult: Bool {
+    var isPartialResult: Bool {
         get {
             return pending != nil
         }
