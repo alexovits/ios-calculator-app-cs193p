@@ -15,6 +15,12 @@ class CalculatorService {
     private var descriptionAcc = " "
     private var variableValues = Dictionary<String, Double>()
     
+    private var isPartialResult: Bool {
+        get {
+            return pending != nil
+        }
+    }
+    
     enum Operation {
         case Constant(Double)
         case UnaryOperation((Double) -> Double, (String) -> String)
@@ -143,7 +149,7 @@ class CalculatorService {
         if descriptionAcc != pending?.descOperand{
             temporaryAppend = String(descriptionAcc)
         }
-        return (pending != nil) ? pending!.descFunction(pending!.descOperand, temporaryAppend) : descriptionAcc + " ="
+        return isPartialResult ? pending!.descFunction(pending!.descOperand, temporaryAppend) : descriptionAcc + " ="
     }
     
     func setVariable(variable: String, value: Double){

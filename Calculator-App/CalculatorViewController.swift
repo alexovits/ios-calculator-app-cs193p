@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class ViewController: UIViewController {
+class CalculatorViewController: UIViewController {
 
     // Implicitly unwrapped optional
     // Instead of using ? we force it to unwrap the optional's value
